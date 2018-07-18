@@ -47,7 +47,7 @@
 
 * **Sample - Json Input to create a call end:**
 
-  ``` json
+  ```
   {
     "type": "end", // Required
     "timestamp": "2016-02-29T12:00:00Z", // Required
