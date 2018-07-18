@@ -1,6 +1,6 @@
 **Telephone Call**
 ----
-  Creates telephone calls
+  Create telephone call
 
 * **URL**
 
@@ -33,7 +33,7 @@
      {"errors":{"message":{"field":{"field":["message"]}}}}
     ```
 
-* **Sample Call Start:**
+* **Sample - Json Input to create a call start:**
 
   ``` json
   {
@@ -45,7 +45,7 @@
   }
   ```
 
-* **Sample Call End:**
+* **Sample - Json Input to create a call end:**
 
   ``` json
   {
@@ -57,7 +57,7 @@
 
   **Telephone Bill**
   ----
-    Gets telephone bills
+    Get telephone bills
 
   * **URL**
 
@@ -89,11 +89,11 @@
        {"errors":{"message":{"field":{"field":["message"]}}}}
       ```
 
-  * **Sample Report:**
+  * **Sample - Json Input to get bills report:**
 
     ``` json
     {
-      "telephone_number": "AAXXXXXXXXX", // Required
+      "phone_number": "AAXXXXXXXXX", // Required
       "period": "01/2018" // Optional
     }
     ```
