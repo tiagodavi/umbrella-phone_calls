@@ -14,7 +14,7 @@
 
   * **Code:** 201 Created <br />
     **Content:**
-    ``` json
+    ```
     {
       "id": "25",
       "type": "start",
@@ -29,13 +29,13 @@
 
   * **Code:** 400/403 Bad Request <br />
     **Content:**
-    ``` json
+    ```
      {"errors":{"message":{"field":{"field":["message"]}}}}
     ```
 
 * **Sample - Json Input to create a call start:**
 
-  ``` json
+  ```
   {
     "type": "start", // Required
     "timestamp": "2016-02-29T12:00:00Z", // Required
@@ -71,7 +71,7 @@
 
     * **Code:** 200 Ok <br />
       **Content:**
-      ``` json
+      ```
       [{
         "destination": "AAXXXXXXXXX",
         "call_start_date": "29/01/2018",
@@ -85,13 +85,13 @@
 
     * **Code:** 400/403 Bad Request <br />
       **Content:**
-      ``` json
+      ```
        {"errors":{"message":{"field":{"field":["message"]}}}}
       ```
 
   * **Sample - Json Input to get bills report:**
 
-    ``` json
+    ```
     {
       "phone_number": "AAXXXXXXXXX", // Required
       "period": "01/2018" // Optional
