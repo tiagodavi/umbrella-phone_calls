@@ -13,9 +13,8 @@ defmodule Manage.Models.TelephoneCall do
   end
 
   defp create_call(attrs, changeset_fn) do
-    resp =
-      %TelephoneCall{}
-      |> changeset_fn.(attrs)
-      |> Repo.insert()
+    %TelephoneCall{}
+    |> changeset_fn.(attrs)
+    |> Repo.insert()
   end
 end
