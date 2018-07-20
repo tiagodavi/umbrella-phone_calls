@@ -8,8 +8,7 @@ defmodule Manage.Application do
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
-      # Starts a worker by calling: Manage.Worker.start_link(arg)
-      # {Manage.Worker, arg},
+      Manage.Repo
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
