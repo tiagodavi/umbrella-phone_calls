@@ -10,9 +10,11 @@ defmodule ApiWeb.Api.V1.TelephoneSystemController do
 
   def create(conn, params) do
     case Manage.create_telephone_call(params) do
-      {:ok, data} -> render(conn, "telephone_call.json", data: data)
-      {:error, code, data} -> send_error(conn, code, data)
+      {:ok, data} ->
+        render(conn, "telephone_call.json", data: data)
+
+      {:error, code, data} ->
+        send_error(conn, code, data)
     end
   end
-
 end

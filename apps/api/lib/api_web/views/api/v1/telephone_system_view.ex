@@ -8,5 +8,4 @@ defmodule ApiWeb.Api.V1.TelephoneSystemView do
   def render("telephone_bill.json", _params) do
     %{data: %{message: "telephone_bill.json"}}
   end
-
 end

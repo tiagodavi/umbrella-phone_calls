@@ -12,23 +12,24 @@ defmodule ApiWeb.ErrorView do
   defp handle_assign_error(message, assigns) do
     case has_assign_error_key?(assigns) do
       {:ok, errors} ->
-          %{errors: %{message: errors}}
+        %{errors: %{message: errors}}
+
       _ ->
-          %{errors: %{message: message}}
+        %{errors: %{message: message}}
     end
   end
 
   defp has_assign_error_key?(assigns) do
-    if Map.has_key?(assigns, :errors)  do
-        {:ok, assigns.errors}
+    if Map.has_key?(assigns, :errors) do
+      {:ok, assigns.errors}
     else
-        nil
+      nil
     end
   end
 
   # In case no render clause matches or no
   # template is found, let's render it as 404
   def template_not_found(_template, assigns) do
-    render "404.json", assigns
+    render("404.json", assigns)
   end
 end

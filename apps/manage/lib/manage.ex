@@ -1,4 +1,5 @@
 defmodule Manage do
+  @moduledoc false
 
   def show_telephone_bill(params) do
     {:error, 403, "Something wrong happend"}
