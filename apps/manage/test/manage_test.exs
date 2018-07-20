@@ -5,5 +5,4 @@ defmodule ManageTest do
     Ecto.Adapters.SQL.Sandbox.checkout(Manage.Repo)
     :ok
   end
-
 end

@@ -26,7 +26,6 @@ defmodule Manage.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:credo, "~> 0.9.1", only: [:dev, :test], runtime: false},
       {:ecto, "~> 2.0"},
       {:postgrex, "~> 0.11"}
     ]
