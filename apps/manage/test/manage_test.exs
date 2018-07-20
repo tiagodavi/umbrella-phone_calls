@@ -1,8 +1,8 @@
 defmodule ManageTest do
-  use ExUnit.Case
-  doctest Manage
+  use ExUnit.Case, async: true
 
-  test "greets the world" do
-    assert Manage.hello() == :world
+  setup do
+    Ecto.Adapters.SQL.Sandbox.checkout(Manage.Repo)
+    :ok
   end
 end

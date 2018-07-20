@@ -4,6 +4,10 @@ This is an Elixir Umbrella API to manage telephone calls.
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
+  * Create your DEV database with `mix ecto.create`
+  * Create your TEST database with `MIX_ENV=test mix ecto.create`
+  * Run DEV migrations with `mix ecto.migrate`
+  * Run TEST migrations with `MIX_ENV=test mix ecto.migrate`
   * Run tests with `mix test`
   * Start Phoenix endpoint with `mix phx.server`
   * Open `WEBAPI.md` to see the api documentation
