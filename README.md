@@ -10,7 +10,7 @@ To start your Phoenix server:
 
   Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
-  ### Settings:
+### Settings:
 
   - This project uses [`Credo`](https://github.com/rrrene/credo) and [`Formatter`](https://medium.com/blackode/code-formatter-the-big-feature-in-elixir-v1-6-0-f6572061a4ba) to ensure quality
   - Hosted at: https://funny-courageous-easternnewt.gigalixirapp.com
