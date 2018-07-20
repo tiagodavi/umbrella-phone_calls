@@ -4,7 +4,7 @@ defmodule ApiWeb.Api.V1.TelephoneSystemController do
   def index(conn, params) do
     case Manage.show_telephone_bill(params) do
       {:ok, data} -> render(conn, "telephone_bill.json", data: data)
-      {:error, code, data} -> send_error(conn, code, data)
+      {:error, data} -> send_error(conn, 403, data)
     end
   end
 
@@ -13,8 +13,8 @@ defmodule ApiWeb.Api.V1.TelephoneSystemController do
       {:ok, data} ->
         render(conn, "telephone_call.json", data: data)
 
-      {:error, code, data} ->
-        send_error(conn, code, data)
+      {:error, data} ->
+        send_error(conn, 403, data)
     end
   end
 end

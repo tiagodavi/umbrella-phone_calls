@@ -12,14 +12,14 @@
 
 * **Success Response:**
 
-  * **Code:** 201 Created <br />
+  * **Code:** 200 OK <br />
     **Content:**
     ```
     {
-      "id": "25",
+      "id": 25,
       "type": "start",
-      "timestamp": "2016-02-29T12:00:00Z",
-      "call_id": "70",
+      "timestamp": "2016-02-29T12:00:00",
+      "call_id": 70,
       "source": "AAXXXXXXXXX",
       "destination": "AAXXXXXXXXX"
     }
@@ -27,10 +27,10 @@
 
 * **Error Response:**
 
-  * **Code:** 400/403 Bad Request <br />
+  * **Code:** 403 Bad Request <br />
     **Content:**
     ```
-     {"errors":{"message":{"field":{"field":["message"]}}}}
+     {"errors":{"message":{"field":["message"]}}}
     ```
 
 * **Sample - Json Input to create a call start:**
@@ -74,7 +74,7 @@
       ```
       [{
         "destination": "AAXXXXXXXXX",
-        "call_start_date": "29/01/2018",
+        "call_start_date": "2016-02-29",
         "call_start_time": "12:00:00",
         "call_duration": "0h35m42s",
         "call_price": "R$ 3,96"
@@ -83,10 +83,10 @@
 
   * **Error Response:**
 
-    * **Code:** 400/403 Bad Request <br />
+    * **Code:** 403 Bad Request <br />
       **Content:**
       ```
-       {"errors":{"message":{"field":{"field":["message"]}}}}
+       {"errors":{"message":{"field":["message"]}}}
       ```
 
   * **Sample - Json Input to get bills report:**
