@@ -16,8 +16,8 @@ defmodule Manage.Schemas.TelephoneCall do
     telephone_call
     |> cast(attrs, [:type, :timestamp, :call_id, :source, :destination])
     |> validate_required([:type, :timestamp, :call_id, :source, :destination])
-    |> validate_format(:source, ~r/^[0-9]{11}$/)
-    |> validate_format(:destination, ~r/^[0-9]{11}$/)
+    |> validate_format(:source, ~r/^[0-9]{10,11}$/)
+    |> validate_format(:destination, ~r/^[0-9]{10,11}$/)
     |> validate_source_destination
   end
 

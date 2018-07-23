@@ -41,7 +41,7 @@ defmodule ApiWeb.Api.V1.TelephoneSystemControllerTest do
       assert response == %{"message" => %{"numbers" => ["phone numbers are the same"]}}
     end
 
-    test "returns errors when source or destination are less than eleven", %{
+    test "returns errors when source or destination are less than 10 or 11", %{
       conn: conn,
       path: path
     } do
@@ -50,7 +50,7 @@ defmodule ApiWeb.Api.V1.TelephoneSystemControllerTest do
         "timestamp" => "2016-02-29T12:00:00Z",
         "call_id" => "1",
         "source" => "99988526423",
-        "destination" => "9998852642"
+        "destination" => "999885264"
       }
 
       conn = post(conn, path, data)
