@@ -59,6 +59,37 @@ defmodule ApiWeb.Api.V1.TelephoneSystemControllerTest do
       assert response == %{"message" => %{"destination" => ["has invalid format"]}}
     end
 
+    test "returns error when creating two call start|end for the same call_id", %{
+      conn: conn,
+      path: path
+    } do
+      call_start = %{
+        "type" => "start",
+        "timestamp" => "2017-12-12T14:00:03Z",
+        "call_id" => 1,
+        "source" => "99988526423",
+        "destination" => "99988526427"
+      }
+
+      call_end = %{
+        "type" => "end",
+        "timestamp" => "2017-12-12T14:00:03Z",
+        "call_id" => 1
+      }
+
+      Manage.create_telephone_call(call_start)
+      Manage.create_telephone_call(call_end)
+
+      conn_a = post(conn, path, call_start)
+      response_a = json_response(conn_a, 403)["errors"]
+
+      conn_b = post(conn, path, call_end)
+      response_b = json_response(conn_b, 403)["errors"]
+
+      assert response_a == %{"message" => "Call Start already created for this call_id"}
+      assert response_b == %{"message" => "Call End already created for this call_id"}
+    end
+
     test "creates call start record", %{conn: conn, path: path} do
       data = %{
         "type" => "start",
@@ -107,11 +138,16 @@ defmodule ApiWeb.Api.V1.TelephoneSystemControllerTest do
   end
 
   describe "api/v1/telephone-bills/:phone_number" do
-    @tag :run
-    test "returns the telephone bill using a valid number", %{conn: conn} do
+    test "returns the telephone bill using a valid number and a valid period", %{
+      conn: conn
+    } do
+      previous =
+        NaiveDateTime.utc_now()
+        |> NaiveDateTime.add(-2_592_000)
+
       call_start = %{
         "type" => "start",
-        "timestamp" => "2017-12-12T14:00:03Z",
+        "timestamp" => NaiveDateTime.to_string(previous),
         "call_id" => 1,
         "source" => "99988526423",
         "destination" => "99988526427"
@@ -119,7 +155,7 @@ defmodule ApiWeb.Api.V1.TelephoneSystemControllerTest do
 
       call_end = %{
         "type" => "end",
-        "timestamp" => "2017-12-12T15:37:30Z",
+        "timestamp" => NaiveDateTime.to_string(previous),
         "call_id" => 1
       }
 
@@ -127,15 +163,10 @@ defmodule ApiWeb.Api.V1.TelephoneSystemControllerTest do
       Manage.create_telephone_call(call_end)
 
       path = api_v1_telephone_system_path(conn, :index, "99988526423")
-      conn = get(conn, path)
-      response = json_response(conn, 403)["errors"]
+      conn = get(conn, path, period: "#{previous.month}/#{previous.year}")
+      response = json_response(conn, 200)["data"]
 
-      assert response == %{"message" => %{"period" => ["has invalid format"]}}
-    end
-
-    test "returns the telephone bill using a valid number and a valid period", %{
-      conn: conn
-    } do
+      assert Enum.count(response) == 1
     end
 
     test "returns error when there is only the call start", %{conn: conn} do
@@ -153,7 +184,7 @@ defmodule ApiWeb.Api.V1.TelephoneSystemControllerTest do
       conn = get(conn, path)
       response = json_response(conn, 403)["errors"]
 
-      assert response == %{"message" => "Phone number has not been found"}
+      assert response == %{"message" => "There is no report for this arguments"}
     end
 
     test "returns error when phone number is unknown", %{conn: conn} do
@@ -161,7 +192,7 @@ defmodule ApiWeb.Api.V1.TelephoneSystemControllerTest do
       conn = get(conn, path)
       response = json_response(conn, 403)["errors"]
 
-      assert response == %{"message" => "Phone number has not been found"}
+      assert response == %{"message" => "There is no report for this arguments"}
     end
 
     test "returns error when phone number is invalid", %{conn: conn} do

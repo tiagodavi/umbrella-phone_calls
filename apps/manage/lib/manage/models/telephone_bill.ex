@@ -2,7 +2,7 @@ defmodule Manage.Models.TelephoneBill do
   @moduledoc false
   import Ecto.Query, warn: false
   alias Manage.Repo
-  alias Manage.Schemas.TelephoneBill
+  alias Manage.Schemas.{TelephoneBill, PriceRules}
   alias Manage.Models.TelephoneCall
 
   def report(attrs) do
@@ -18,11 +18,9 @@ defmodule Manage.Models.TelephoneBill do
   end
 
   defp build_report(attrs) do
-    IO.inspect(attrs)
-
-    case TelephoneCall.info(attrs["phone_number"]) do
+    case TelephoneCall.info(attrs["phone_number"], attrs["period"]) do
       [_ | _] = data -> {:ok, Enum.map(data, &build_data/1)}
-      _ -> {:error, "Phone number has not been found"}
+      _ -> {:error, "There is no report for this arguments"}
     end
   end
 
@@ -32,7 +30,7 @@ defmodule Manage.Models.TelephoneBill do
       call_start_date: NaiveDateTime.to_date(data.call_start),
       call_start_time: NaiveDateTime.to_time(data.call_start),
       call_duration: build_duration(data.call_start, data.call_end),
-      call_price: build_price(data.call_start, data.call_end)
+      call_price: build_price(data.call_start, data.call_end, data.rule_id)
     }
   end
 
@@ -41,13 +39,22 @@ defmodule Manage.Models.TelephoneBill do
     "#{hour}h#{min}m#{sec}s"
   end
 
-  defp build_price(call_start, call_end) do
+  defp build_price(call_start, call_end, rule_id \\ 1) do
     {hour, min, sec} = build_time(call_start, call_end)
-    45.50
+    standing_charge = PriceRules.standing_charge(rule_id)
+
+    rule =
+      Enum.find(PriceRules.rules(rule_id), fn rule ->
+        a = Time.compare(call_start, rule.from)
+        b = Time.compare(call_start, rule.to)
+        a in [:eq, :gt] && b in [:eq, :lt]
+      end)
+
+    standing_charge + min * rule.charge + hour * 60 * rule.charge
   end
 
   defp build_time(call_start, call_end) do
-    secs = Time.diff(call_end, call_start)
+    secs = NaiveDateTime.diff(call_end, call_start)
     :calendar.seconds_to_time(secs)
   end
 end
