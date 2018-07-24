@@ -90,3 +90,7 @@
       ```
        {"errors":{"message":{"field":["message"]}}}
       ```
+
+  * **Example Usage:**
+
+    `/api/v1/telephone-bills/99988526423?period=07/2018`

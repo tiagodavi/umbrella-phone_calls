@@ -18,7 +18,7 @@ To start your Phoenix server:
 
   - This project uses [`Credo`](https://github.com/rrrene/credo) and [`Formatter`](https://medium.com/blackode/code-formatter-the-big-feature-in-elixir-v1-6-0-f6572061a4ba) to ensure quality
   - Based on [`Olist Challenge Page`](https://github.com/olist/work-at-olist/)
-  - Hosted at: https://funny-courageous-easternnewt.gigalixirapp.com
+  - Hosted on: https://funny-courageous-easternnewt.gigalixirapp.com
   - Created on Mac OS Sierra 10.12.2
   - IDE Atom 1.28.2
   - Elixir Umbrella Application
