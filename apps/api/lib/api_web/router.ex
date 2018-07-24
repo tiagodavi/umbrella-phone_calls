@@ -10,7 +10,7 @@ defmodule ApiWeb.Router do
 
     scope "/v1", Api.V1, as: :v1 do
       post("/telephone-calls", TelephoneSystemController, :create)
-      get("/telephone-bills", TelephoneSystemController, :index)
+      get("/telephone-bills/:phone_number", TelephoneSystemController, :index)
     end
   end
 

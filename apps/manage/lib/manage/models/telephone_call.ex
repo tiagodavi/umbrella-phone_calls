@@ -17,4 +17,23 @@ defmodule Manage.Models.TelephoneCall do
     |> changeset_fn.(attrs)
     |> Repo.insert()
   end
+
+  def info(phone_number) do
+    query =
+      from(
+        t0 in TelephoneCall,
+        join: t1 in TelephoneCall,
+        on: t0.call_id == t1.call_id,
+        select: %{
+          destination: t0.destination,
+          call_start: t0.timestamp,
+          call_end: t1.timestamp
+        },
+        where: t0.source == ^phone_number,
+        where: t0.type == "start",
+        where: t1.type == "end"
+      )
+
+    Repo.all(query)
+  end
 end

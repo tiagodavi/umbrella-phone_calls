@@ -1,10 +1,10 @@
 defmodule Manage do
   @moduledoc false
 
-  alias Manage.Models.TelephoneCall
+  alias Manage.Models.{TelephoneCall, TelephoneBill}
 
   def show_telephone_bill(params) do
-    {:error, "Something wrong happend"}
+    TelephoneBill.report(params)
   end
 
   def create_telephone_call(%{"type" => "start"} = params) do

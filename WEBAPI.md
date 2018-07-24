@@ -61,7 +61,7 @@
 
   * **URL**
 
-    /api/v1/telephone-bills
+    /api/v1/telephone-bills/:phone_number?period=month/year
 
   * **Method:**
 
@@ -89,7 +89,7 @@
        {"errors":{"message":{"field":["message"]}}}
       ```
 
-  * **Sample - Json Input to get bills report:**
+  * **Sample - Input to get bills report:**
 
     ```
     {
