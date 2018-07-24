@@ -1,7 +1,6 @@
 defmodule Manage.Models.TelephoneBill do
   @moduledoc false
   import Ecto.Query, warn: false
-  alias Manage.Repo
   alias Manage.Schemas.{TelephoneBill, PriceRules}
   alias Manage.Models.TelephoneCall
 
@@ -39,8 +38,8 @@ defmodule Manage.Models.TelephoneBill do
     "#{hour}h#{min}m#{sec}s"
   end
 
-  defp build_price(call_start, call_end, rule_id \\ 1) do
-    {hour, min, sec} = build_time(call_start, call_end)
+  defp build_price(call_start, call_end, rule_id) do
+    {hour, min, _sec} = build_time(call_start, call_end)
     standing_charge = PriceRules.standing_charge(rule_id)
 
     rule =
