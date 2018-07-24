@@ -1,6 +1,8 @@
 **Telephone Call**
 ----
-  Create telephone call
+  Create telephone call (start|end)
+
+  You have to send two requests in any order to build a record pair.
 
 * **URL**
 
@@ -33,7 +35,7 @@
      {"errors":{"message":{"field":["message"]}}}
     ```
 
-* **Sample - Json Input to create a call start:**
+* **Json body to create a call start:**
 
   ```
   {
@@ -45,19 +47,19 @@
   }
   ```
 
-* **Sample - Json Input to create a call end:**
+* **Json body to create a call end:**
 
   ```
   {
     "type": "end", // Required
-    "timestamp": "2016-02-29T12:00:00Z", // Required
+    "timestamp": "2016-02-29T12:10:00Z", // Required
     "call_id": "70" // Required
   }
   ```
 
   **Telephone Bill**
   ----
-    Get telephone bills
+    Get telephone bill
 
   * **URL**
 
@@ -88,12 +90,3 @@
       ```
        {"errors":{"message":{"field":["message"]}}}
       ```
-
-  * **Sample - Input to get bills report:**
-
-    ```
-    {
-      "phone_number": "AAXXXXXXXXX", // Required
-      "period": "01/2018" // Optional
-    }
-    ```
