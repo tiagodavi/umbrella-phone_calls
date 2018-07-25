@@ -180,7 +180,7 @@ defmodule ApiWeb.Api.V1.TelephoneSystemControllerTest do
       conn = get(conn, path)
       response = json_response(conn, 403)["errors"]
 
-      assert response == %{"message" => "There is no report for this arguments"}
+      assert response == %{"message" => "There is no report for these arguments"}
     end
 
     test "returns error when phone number is unknown", %{conn: conn} do
@@ -188,7 +188,7 @@ defmodule ApiWeb.Api.V1.TelephoneSystemControllerTest do
       conn = get(conn, path)
       response = json_response(conn, 403)["errors"]
 
-      assert response == %{"message" => "There is no report for this arguments"}
+      assert response == %{"message" => "There is no report for these arguments"}
     end
 
     test "returns error when phone number is invalid", %{conn: conn} do

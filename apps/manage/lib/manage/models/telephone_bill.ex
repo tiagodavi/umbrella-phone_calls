@@ -19,7 +19,7 @@ defmodule Manage.Models.TelephoneBill do
   defp build_report(attrs) do
     case TelephoneCall.info(attrs["phone_number"], attrs["period"]) do
       [_ | _] = data -> {:ok, Enum.map(data, &build_data/1)}
-      _ -> {:error, "There is no report for this arguments"}
+      _ -> {:error, "There is no report for these arguments"}
     end
   end
 
@@ -49,7 +49,7 @@ defmodule Manage.Models.TelephoneBill do
         a in [:eq, :gt] && b in [:eq, :lt]
       end)
 
-    Float.round(standing_charge + (min * rule.charge) + (hour * 60 * rule.charge), 2)
+    Float.round(standing_charge + min * rule.charge + hour * 60 * rule.charge, 2)
   end
 
   defp build_time(call_start, call_end) do
