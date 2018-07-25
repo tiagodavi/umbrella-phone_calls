@@ -104,8 +104,10 @@ defmodule ManageTest do
       |> NaiveDateTime.add(-2_592_000)
 
     {:ok, previous_a} = NaiveDateTime.new(NaiveDateTime.to_date(previous), ~T[21:10:00.000])
-    previous_b = previous_a
-    |> NaiveDateTime.add(120)
+
+    previous_b =
+      previous_a
+      |> NaiveDateTime.add(120)
 
     call_start = %{
       "type" => "start",
@@ -121,11 +123,13 @@ defmodule ManageTest do
       "call_id" => 1
     }
 
-    assert {:ok, start_data} = Manage.create_telephone_call(call_start)
-    assert {:ok, end_data} = Manage.create_telephone_call(call_end)
-    assert {:ok, [report | _ ]} = Manage.show_telephone_bill(%{
-      "phone_number" => "99988526423"
-    })
+    assert {:ok, _} = Manage.create_telephone_call(call_start)
+    assert {:ok, _} = Manage.create_telephone_call(call_end)
+
+    assert {:ok, [report | _]} =
+             Manage.show_telephone_bill(%{
+               "phone_number" => "99988526423"
+             })
 
     assert report.call_duration == "0h2m0s"
     assert report.call_price == 0.54

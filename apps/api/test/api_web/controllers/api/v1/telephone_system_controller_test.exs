@@ -141,13 +141,9 @@ defmodule ApiWeb.Api.V1.TelephoneSystemControllerTest do
     test "returns the telephone bill using a valid number and a valid period", %{
       conn: conn
     } do
-      previous =
-        NaiveDateTime.utc_now()
-        |> NaiveDateTime.add(-2_592_000)
-
       call_start = %{
         "type" => "start",
-        "timestamp" => NaiveDateTime.to_string(previous),
+        "timestamp" => "2018-02-28T21:57:13Z",
         "call_id" => 1,
         "source" => "99988526423",
         "destination" => "99988526427"
@@ -155,7 +151,7 @@ defmodule ApiWeb.Api.V1.TelephoneSystemControllerTest do
 
       call_end = %{
         "type" => "end",
-        "timestamp" => NaiveDateTime.to_string(previous),
+        "timestamp" => "2018-02-28T22:00:56Z",
         "call_id" => 1
       }
 
@@ -163,7 +159,7 @@ defmodule ApiWeb.Api.V1.TelephoneSystemControllerTest do
       Manage.create_telephone_call(call_end)
 
       path = api_v1_telephone_system_path(conn, :index, "99988526423")
-      conn = get(conn, path, period: "#{previous.month}/#{previous.year}")
+      conn = get(conn, path, period: "02/2018")
       response = json_response(conn, 200)["data"]
 
       assert Enum.count(response) == 1

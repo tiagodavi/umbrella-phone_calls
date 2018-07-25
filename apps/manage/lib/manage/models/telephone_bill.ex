@@ -34,12 +34,12 @@ defmodule Manage.Models.TelephoneBill do
   end
 
   defp build_duration(call_start, call_end) do
-    {hour, min, sec} = build_time(call_start, call_end)
+    {hour, min, sec, _} = build_time(call_start, call_end)
     "#{hour}h#{min}m#{sec}s"
   end
 
   defp build_price(call_start, call_end, rule_id) do
-    {hour, min, _sec} = build_time(call_start, call_end)
+    {hour, min, _, _} = build_time(call_start, call_end)
     standing_charge = PriceRules.standing_charge(rule_id)
 
     rule =
@@ -54,6 +54,8 @@ defmodule Manage.Models.TelephoneBill do
 
   defp build_time(call_start, call_end) do
     secs = NaiveDateTime.diff(call_end, call_start)
-    :calendar.seconds_to_time(secs)
+
+    %Timex.Duration{megaseconds: 0, seconds: secs, microseconds: 0}
+    |> Timex.Duration.to_clock()
   end
 end
