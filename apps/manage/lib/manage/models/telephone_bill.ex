@@ -49,7 +49,7 @@ defmodule Manage.Models.TelephoneBill do
         a in [:eq, :gt] && b in [:eq, :lt]
       end)
 
-    standing_charge + min * rule.charge + hour * 60 * rule.charge
+    Float.round(standing_charge + min * rule.charge + hour * 60 * rule.charge, 2)
   end
 
   defp build_time(call_start, call_end) do
